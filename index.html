@@ -1174,7 +1174,7 @@ footer {
     <div class="section-head">
       <div>
         <div class="label">03, Projects</div>
-        <div class="section-title">Our Pet Project</div>
+        <div class="section-title">Our Project</div>
       </div>
       <div class="section-count">Featured Work</div>
     </div>
@@ -1229,21 +1229,23 @@ footer {
         </div>
       </div>
 
-      <div class="contact-right">
+      <form class="contact-right" id="contact-form" method="POST" action="YOUR_FORMSPREE_ENDPOINT">
+        <!-- Honeypot: hidden from humans, bots fill it → submission rejected -->
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
         <div class="contact-field">
           <label class="field-label">Your Name</label>
-          <input class="field-input" type="text" placeholder="John Doe">
+          <input class="field-input" type="text" name="name" placeholder="John Doe" required>
         </div>
         <div class="contact-field">
           <label class="field-label">Email Address</label>
-          <input class="field-input" type="email" placeholder="john.doe@company.com">
+          <input class="field-input" type="email" name="email" placeholder="john.doe@company.com" required>
         </div>
         <div class="contact-field">
           <label class="field-label">What are you building?</label>
-          <textarea class="field-input field-textarea" placeholder="Tell us about your project…"></textarea>
+          <textarea class="field-input field-textarea" name="message" placeholder="Tell us about your project…" required></textarea>
         </div>
-        <button class="send-btn">Send Message <span class="arrow"></span></button>
-      </div>
+        <button class="send-btn" type="submit">Send Message <span class="arrow"></span></button>
+      </form>
     </div>
   </div>
 </section>
@@ -1433,6 +1435,7 @@ window.addEventListener('scroll', () => {
 
   window.addEventListener('resize', () => { resize(); initNodes(); });
 }());
+</script>
 </script>
 
 </body>
