@@ -670,9 +670,15 @@ nav {
 .project-visual:hover img { transform: scale(1.03); }
 
 /* ── Project Slider ── */
-.project-slider { position: relative; }
+.project-slider-outer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
 
-.project-slides-clip { position: relative; overflow: hidden; }
+.project-slider { flex: 1; min-width: 0; }
+
+.project-slides-clip { overflow: hidden; }
 
 .project-slides {
   display: flex;
@@ -689,21 +695,16 @@ nav {
 }
 
 .proj-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
   width: 42px; height: 42px;
+  flex-shrink: 0;
   background: var(--surface2);
   border: 1px solid var(--border);
   color: var(--muted2);
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: border-color 0.2s, color 0.2s, background 0.2s;
-  flex-shrink: 0;
+  align-self: center;
 }
-.proj-prev { left: 16px; }
-.proj-next { right: 16px; }
 .proj-arrow:hover { border-color: var(--cyan); color: var(--cyan); background: var(--surface3); }
 
 .proj-dots { display: flex; gap: 10px; align-items: center; }
@@ -1228,14 +1229,13 @@ footer {
       <div class="section-count">Featured Work</div>
     </div>
 
-    <div class="project-slider">
-      <div class="project-slides-clip">
+    <div class="project-slider-outer">
       <button class="proj-arrow proj-prev" aria-label="Previous project">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
-      <button class="proj-arrow proj-next" aria-label="Next project">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-      </button>
+
+      <div class="project-slider">
+      <div class="project-slides-clip">
       <div class="project-slides">
 
         <!-- ── Slide 1 · Haigo ── -->
@@ -1334,7 +1334,13 @@ footer {
         </div>
       </div>
 
-    </div><!-- /project-slider -->
+      </div><!-- /project-slider -->
+
+      <button class="proj-arrow proj-next" aria-label="Next project">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+    </div><!-- /project-slider-outer -->
   </div>
 </section>
 
