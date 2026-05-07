@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AIKOU – Business Card – Viktor Tóth</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #111;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 60px 40px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.side-label {
+  color: #444;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  font-family: 'Space Mono', monospace;
+  text-align: center;
+}
+
+/* ─── CARD ─── */
+.card {
+  width: 96mm;
+  height: 56mm;
+  position: relative;
+  overflow: hidden;
+  background: #090909;
+  border-radius: 3mm;
+  border: 0.3mm solid #1e1e1e;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+}
+
+/* grid texture */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.013) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.013) 1px, transparent 1px);
+  background-size: 4mm 4mm;
+  border-radius: 3mm;
+  z-index: 0;
+}
+
+/* subtle cyan glow */
+.card::after {
+  content: '';
+  position: absolute;
+  width: 60mm; height: 60mm;
+  background: radial-gradient(circle, rgba(0,200,255,0.055) 0%, transparent 65%);
+  top: -20mm; right: -10mm;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.card-inner {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  padding: 6mm 7mm;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* ─── FRONT ─── */
+
+.front-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.front-name-block {
+  text-align: right;
+}
+
+.name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 5mm;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+
+.title {
+  font-family: 'Space Mono', monospace;
+  font-size: 2mm;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #00c8ff;
+  margin-top: 1mm;
+}
+
+/* contact rows */
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2mm;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 2.5mm;
+}
+
+.contact-icon {
+  width: 3.5mm;
+  height: 3.5mm;
+  flex-shrink: 0;
+  color: #00c8ff;
+}
+
+.contact-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 2.2mm;
+  color: #00c8ff;
+  letter-spacing: 0.04em;
+}
+
+/* ─── BACK ─── */
+
+.back .card-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* extra glow for back */
+.back::after {
+  top: auto;
+  bottom: -20mm;
+  left: -10mm;
+  right: auto;
+}
+
+/* ─── PRINT ─── */
+@media print {
+  body { background: white; padding: 0; gap: 0; }
+  .side-label { display: none; }
+  .card { box-shadow: none; page-break-after: always; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ FRONT ══════════ -->
+<div>
+  <p class="side-label">Front</p>
+  <div class="card front">
+    <div class="card-inner">
+
+      <div class="front-top">
+        <!-- Logo: emblem + AIKOU (logo-02) -->
+        <img src="logos/aikou-logo-02fin_withoutbackground.svg" style="height:8mm;width:auto;">
+
+        <!-- Name + title -->
+        <div class="front-name-block">
+          <div class="name">Viktor Tóth</div>
+          <div class="title">CEO</div>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div class="contact-list">
+        <div class="contact-row">
+          <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          <span class="contact-text">www.aikou.tech</span>
+        </div>
+        <div class="contact-row">
+          <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.58 3.2 2 2 0 0 1 3.55 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.69a16 16 0 0 0 5.55 5.55l.86-.86a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          <span class="contact-text">+36 30 788 5547</span>
+        </div>
+        <div class="contact-row">
+          <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          <span class="contact-text">info@aikou.tech</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ BACK ══════════ -->
+<div>
+  <p class="side-label">Back</p>
+  <div class="card back">
+    <div class="card-inner">
+      <!-- Logo: emblem + AIKOU TECHNOLOGIES (logo-03) -->
+      <img src="logos/aikou-logo-03-bright.svg" style="width:46mm;height:auto;">
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

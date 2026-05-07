@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  AIKOU — Background
+  Size   : 1920 × 1080 px (scales to any size)
+  Layers : Background · Glow
+  Colors : RGB — switch to CMYK in Illustrator if needed
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/"
+  version="1.1"
+  width="1920" height="1080"
+  viewBox="0 0 1920 1080"
+  xml:space="preserve">
+
+  <defs>
+
+    <!-- Grid — 36 × 36 px, matching website -->
+    <pattern id="grid" x="0" y="0" width="36" height="36" patternUnits="userSpaceOnUse">
+      <line x1="0"  y1="0" x2="1920" y2="0"
+            stroke="#ffffff" stroke-opacity="0.028" stroke-width="0.6"/>
+      <line x1="0"  y1="0" x2="0"    y2="1080"
+            stroke="#ffffff" stroke-opacity="0.028" stroke-width="0.6"/>
+    </pattern>
+
+    <!-- Glow 1 — top-right (stronger, like hero) -->
+    <radialGradient id="glow1" cx="1520" cy="-80" r="680"
+                    gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#00c8ff" stop-opacity="0.13"/>
+      <stop offset="55%"  stop-color="#00c8ff" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#00c8ff" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Glow 2 — bottom-left (softer accent) -->
+    <radialGradient id="glow2" cx="-80" cy="1160" r="560"
+                    gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#00c8ff" stop-opacity="0.07"/>
+      <stop offset="60%"  stop-color="#00c8ff" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#00c8ff" stop-opacity="0"/>
+    </radialGradient>
+
+  </defs>
+
+  <!-- ─── Layer 1 · Background ─── -->
+  <g id="Background" i:layer="yes">
+    <!-- Base fill -->
+    <rect width="1920" height="1080" fill="#080808"/>
+    <!-- Grid texture -->
+    <rect width="1920" height="1080" fill="url(#grid)"/>
+  </g>
+
+  <!-- ─── Layer 2 · Glow ─── -->
+  <g id="Glow" i:layer="yes">
+    <rect width="1920" height="1080" fill="url(#glow1)"/>
+    <rect width="1920" height="1080" fill="url(#glow2)"/>
+  </g>
+
+</svg>

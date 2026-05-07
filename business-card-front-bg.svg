@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  AIKOU Business Card — FRONT · Background only
+  Size : 96 × 56 mm  (standard credit-card format)
+  Contains: black fill · subtle border · grid texture · cyan glow (top-right)
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/"
+  version="1.1"
+  width="96mm" height="56mm"
+  viewBox="0 0 96 56"
+  xml:space="preserve">
+
+  <defs>
+    <!-- 4 mm grid tile -->
+    <pattern id="grid" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="4" y2="0" stroke="#ffffff" stroke-opacity="0.013" stroke-width="0.08"/>
+      <line x1="0" y1="0" x2="0" y2="4" stroke="#ffffff" stroke-opacity="0.013" stroke-width="0.08"/>
+    </pattern>
+    <!-- Rounded-rect clip -->
+    <clipPath id="cardClip">
+      <rect width="96" height="56" rx="3" ry="3"/>
+    </clipPath>
+    <!-- Cyan glow — top-right corner -->
+    <radialGradient id="glowGrad" cx="76" cy="10" r="30" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#00c8ff" stop-opacity="0.055"/>
+      <stop offset="65%"  stop-color="#00c8ff" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#00c8ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <g id="Background" i:layer="yes">
+    <rect width="96" height="56" rx="3" ry="3" fill="#090909"/>
+    <rect width="96" height="56" rx="3" ry="3"
+          fill="none" stroke="#1e1e1e" stroke-width="0.3"/>
+    <rect width="96" height="56" rx="3" ry="3"
+          fill="url(#grid)" clip-path="url(#cardClip)"/>
+  </g>
+
+  <!-- Glow -->
+  <g id="Glow" i:layer="yes">
+    <rect width="96" height="56" rx="3" ry="3"
+          fill="url(#glowGrad)" clip-path="url(#cardClip)"/>
+  </g>
+
+</svg>
