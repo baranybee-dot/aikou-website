@@ -953,7 +953,45 @@ footer {
   100% { top: 80%; opacity: 0; }
 }
 
-/* ─── RESPONSIVE ─── */
+/* ─── MOBILE SLIDER STRUCTURE ─── */
+.team-slider-outer,
+.services-slider-outer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.team-slider-box,
+.services-slider-box { flex: 1; min-width: 0; }
+
+.mob-arrow {
+  display: none;
+  width: 36px; height: 36px;
+  flex-shrink: 0;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--muted2);
+  cursor: pointer;
+  align-items: center; justify-content: center;
+  transition: border-color 0.2s, color 0.2s;
+}
+.mob-arrow:hover { border-color: var(--cyan); color: var(--cyan); }
+
+.mob-dots-nav {
+  display: none;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+.mob-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s;
+}
+.mob-dot.active { background: var(--cyan); transform: scale(1.4); }
+
+/* ─── RESPONSIVE · TABLET ─── */
 @media (max-width: 900px) {
   .container { padding: 0 24px; }
   .hero-inner { grid-template-columns: 1fr; gap: 48px; }
@@ -964,6 +1002,55 @@ footer {
   .contact-inner { grid-template-columns: 1fr; }
   .about-intro { grid-template-columns: 1fr; gap: 32px; }
   .nav-links { display: none; }
+}
+
+/* ─── RESPONSIVE · MOBILE ─── */
+@media (max-width: 640px) {
+  /* General */
+  .section { padding: 56px 0; }
+  .container { padding: 0 16px; }
+  .section-head { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .section-count { margin-top: 2px; }
+
+  /* Hero */
+  .hero-h1 { font-size: clamp(26px, 8vw, 38px); }
+  .hero-pills { flex-direction: column; gap: 8px; }
+  .hero-stats { gap: 10px; }
+  .hero-stat-num { font-size: 28px; }
+
+  /* About intro */
+  .about-intro { margin-bottom: 40px; }
+
+  /* Contact */
+  .contact-details { gap: 24px; }
+
+  /* ── Team → slider ── */
+  .mob-arrow { display: flex; }
+  .mob-dots-nav { display: flex; }
+
+  .team-slider-box { overflow: hidden; }
+  .team-grid {
+    display: flex !important;
+    flex-wrap: nowrap;
+    gap: 0 !important;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .team-card { flex: 0 0 100%; max-width: 100%; }
+
+  /* ── Services → slider ── */
+  .services-slider-box { overflow: hidden; }
+  .services-grid {
+    display: flex !important;
+    flex-wrap: nowrap;
+    gap: 0 !important;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .service-card { flex: 0 0 100%; max-width: 100%; }
+
+  /* ── Project slider ── */
+  .project-slider-outer { gap: 6px; }
+  .proj-arrow { width: 32px; height: 32px; }
+  .proj-arrow svg { width: 14px; height: 14px; }
 }
 </style>
 </head>
@@ -1070,7 +1157,12 @@ footer {
       </div>
     </div>
 
-    <div class="team-grid">
+    <div class="team-slider-outer">
+      <button class="mob-arrow team-prev" aria-label="Previous member">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="team-slider-box">
+      <div class="team-grid">
       <!-- Viktor -->
       <div class="team-card">
         <div class="team-img-wrap">
@@ -1144,6 +1236,17 @@ footer {
           </div>
         </div>
       </div>
+    </div><!-- /team-grid -->
+      </div><!-- /team-slider-box -->
+      <button class="mob-arrow team-next" aria-label="Next member">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div><!-- /team-slider-outer -->
+    <div class="mob-dots-nav" id="team-dots">
+      <span class="mob-dot active"></span>
+      <span class="mob-dot"></span>
+      <span class="mob-dot"></span>
+      <span class="mob-dot"></span>
     </div>
   </div>
 </section>
@@ -1159,7 +1262,12 @@ footer {
       <div class="section-count">5 Disciplines</div>
     </div>
 
-    <div class="services-grid">
+    <div class="services-slider-outer">
+      <button class="mob-arrow svc-prev" aria-label="Previous service">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="services-slider-box">
+      <div class="services-grid">
       <div class="service-card">
         <div class="service-num">01</div>
         <div class="service-icon">
@@ -1214,6 +1322,18 @@ footer {
         <div class="service-name">Cloud, DevOps &amp; Operations</div>
         <div class="service-desc">Cloud infrastructure with modern DevOps practices and automated delivery pipelines, including monitoring, security, and system modernization for stability and scale.</div>
       </div>
+    </div><!-- /services-grid -->
+      </div><!-- /services-slider-box -->
+      <button class="mob-arrow svc-next" aria-label="Next service">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div><!-- /services-slider-outer -->
+    <div class="mob-dots-nav" id="svc-dots">
+      <span class="mob-dot active"></span>
+      <span class="mob-dot"></span>
+      <span class="mob-dot"></span>
+      <span class="mob-dot"></span>
+      <span class="mob-dot"></span>
     </div>
   </div>
 </section>
@@ -1591,6 +1711,42 @@ window.addEventListener('scroll', () => {
 
   document.querySelector('.proj-prev').addEventListener('click', function () { goTo(cur - 1); });
   document.querySelector('.proj-next').addEventListener('click', function () { goTo(cur + 1); });
+  dots.forEach(function (d, i) { d.addEventListener('click', function () { goTo(i); }); });
+}());
+
+/* ── Team Slider (mobile) ── */
+(function () {
+  var track = document.querySelector('.team-grid');
+  var dots  = document.querySelectorAll('#team-dots .mob-dot');
+  var total = document.querySelectorAll('.team-card').length;
+  var cur   = 0;
+
+  function goTo(n) {
+    cur = (n + total) % total;
+    track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+    dots.forEach(function (d, i) { d.classList.toggle('active', i === cur); });
+  }
+
+  document.querySelector('.team-prev').addEventListener('click', function () { goTo(cur - 1); });
+  document.querySelector('.team-next').addEventListener('click', function () { goTo(cur + 1); });
+  dots.forEach(function (d, i) { d.addEventListener('click', function () { goTo(i); }); });
+}());
+
+/* ── Services Slider (mobile) ── */
+(function () {
+  var track = document.querySelector('.services-grid');
+  var dots  = document.querySelectorAll('#svc-dots .mob-dot');
+  var total = document.querySelectorAll('.service-card').length;
+  var cur   = 0;
+
+  function goTo(n) {
+    cur = (n + total) % total;
+    track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+    dots.forEach(function (d, i) { d.classList.toggle('active', i === cur); });
+  }
+
+  document.querySelector('.svc-prev').addEventListener('click', function () { goTo(cur - 1); });
+  document.querySelector('.svc-next').addEventListener('click', function () { goTo(cur + 1); });
   dots.forEach(function (d, i) { d.addEventListener('click', function () { goTo(i); }); });
 }());
 </script>
