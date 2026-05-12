@@ -381,10 +381,6 @@ nav {
   padding: 100px 0;
   position: relative;
 }
-.section > .container {
-  position: relative;
-  z-index: 1;
-}
 
 .section-head {
   display: flex;
@@ -795,50 +791,6 @@ nav {
     linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
   background-size: 36px 36px;
-}
-
-#about::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 55% 55% at 92% 10%, rgba(0,200,255,0.07) 0%, transparent 70%),
-    radial-gradient(ellipse 35% 40% at 5% 90%, rgba(0,200,255,0.04) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-#services::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 50% 50% at 5% 15%, rgba(0,200,255,0.07) 0%, transparent 70%),
-    radial-gradient(ellipse 35% 40% at 95% 85%, rgba(0,200,255,0.04) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-#projects::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 50% 55% at 90% 85%, rgba(0,200,255,0.07) 0%, transparent 70%),
-    radial-gradient(ellipse 30% 35% at 8% 10%, rgba(0,200,255,0.04) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-#contact::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 50% 50% at 8% 20%, rgba(0,200,255,0.07) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 45% at 92% 90%, rgba(0,200,255,0.04) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
 }
 
 .contact-inner {
