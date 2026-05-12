@@ -37,7 +37,11 @@
 }
 /* ─── RESET & TOKENS ─── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100%;
+}
 
 :root {
   --black:     #080808;
@@ -67,6 +71,8 @@ body {
   font-size: 15px;
   line-height: 1.65;
   overflow-x: hidden;
+  max-width: 100%;
+  position: relative;
 }
 
 /* ─── GLOBAL GRID TEXTURE ─── */
