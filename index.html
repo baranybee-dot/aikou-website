@@ -409,7 +409,11 @@ nav {
 }
 
 /* ─── ABOUT / TEAM ─── */
-#about { background: var(--surface); }
+#about {
+  background:
+    linear-gradient(45deg, var(--surface) 30%, rgba(0,200,255,0.07) 65%, rgba(0,200,255,0.13) 100%),
+    var(--surface);
+}
 
 .about-intro {
   display: grid;
