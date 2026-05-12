@@ -409,11 +409,16 @@ nav {
 }
 
 /* ─── ABOUT / TEAM ─── */
-#about {
-  background:
-    linear-gradient(45deg, var(--surface) 30%, rgba(0,200,255,0.07) 65%, rgba(0,200,255,0.13) 100%),
-    var(--surface);
+#about { background: var(--surface); }
+#about::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent 25%, rgba(0,200,255,0.06) 60%, rgba(0,200,255,0.14) 100%);
+  pointer-events: none;
+  z-index: 0;
 }
+#about > .container { position: relative; z-index: 1; }
 
 .about-intro {
   display: grid;
