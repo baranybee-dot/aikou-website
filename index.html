@@ -1756,10 +1756,12 @@ window.addEventListener('scroll', () => {
 <script>
 /* ── Project Slider ── */
 (function () {
-  var track  = document.querySelector('.project-slides');
-  var dots   = document.querySelectorAll('.proj-dot');
-  var total  = document.querySelectorAll('.project-slide').length;
-  var cur    = 0;
+  var track   = document.querySelector('.project-slides');
+  var dots    = document.querySelectorAll('.proj-dot');
+  var total   = document.querySelectorAll('.project-slide').length;
+  var cur     = 0;
+  var paused  = false;
+  var timer;
 
   function goTo(n) {
     cur = (n + total) % total;
@@ -1767,9 +1769,22 @@ window.addEventListener('scroll', () => {
     dots.forEach(function (d, i) { d.classList.toggle('active', i === cur); });
   }
 
-  document.querySelector('.proj-prev').addEventListener('click', function () { goTo(cur - 1); });
-  document.querySelector('.proj-next').addEventListener('click', function () { goTo(cur + 1); });
-  dots.forEach(function (d, i) { d.addEventListener('click', function () { goTo(i); }); });
+  function startAuto() {
+    clearInterval(timer);
+    timer = setInterval(function () {
+      if (!paused) goTo(cur + 1);
+    }, 6000);
+  }
+
+  var sliderOuter = document.querySelector('.project-slider-outer');
+  sliderOuter.addEventListener('mouseenter', function () { paused = true; });
+  sliderOuter.addEventListener('mouseleave', function () { paused = false; });
+
+  document.querySelector('.proj-prev').addEventListener('click', function () { goTo(cur - 1); startAuto(); });
+  document.querySelector('.proj-next').addEventListener('click', function () { goTo(cur + 1); startAuto(); });
+  dots.forEach(function (d, i) { d.addEventListener('click', function () { goTo(i); startAuto(); }); });
+
+  startAuto();
 }());
 
 /* ── Team Slider (mobile) ── */
