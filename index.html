@@ -620,6 +620,15 @@ nav {
 
 /* ─── PROJECT ─── */
 #projects { background: var(--surface); }
+#projects::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(225deg, transparent 25%, rgba(0,200,255,0.06) 60%, rgba(0,200,255,0.14) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+#projects > .container { position: relative; z-index: 1; }
 
 .project-block {
   display: grid;
