@@ -577,7 +577,9 @@ br.mob { display: none; }
   pointer-events: none;
 }
 
-.team-info { padding: 20px 20px 24px; }
+.team-card-head { display: flex; flex-direction: column; }
+.team-info { padding: 20px 20px 8px; }
+.team-skills { padding: 0 20px 24px; }
 
 .team-name {
   font-family: var(--mono);
@@ -1250,9 +1252,13 @@ footer {
   #about .section-head { margin-bottom: 8px; }
   #about .about-intro { margin-bottom: 28px; }
   .about-pillars { display: none; }
-  .team-skills { display: flex; }
+  .team-skills { display: flex; padding: 10px 14px 14px; border-top: 1px solid rgba(255,255,255,0.07); }
 
   .team-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .team-card-head {
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -1261,16 +1267,16 @@ footer {
     width: 110px;
     flex-shrink: 0;
     aspect-ratio: unset;
-    min-height: 160px;
+    min-height: 130px;
   }
   .team-info {
     flex: 1;
-    padding: 14px 12px;
+    padding: 14px 12px 14px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
   }
-  .team-role { margin-bottom: 10px; }
+  .team-role { margin-bottom: 0; }
 
   .team-slider-box { overflow: hidden; }
   .team-grid {
@@ -1413,75 +1419,83 @@ footer {
       <div class="team-grid">
       <!-- Viktor -->
       <div class="team-card">
-        <div class="team-img-wrap">
-          <img src="viktor01.png" alt="Viktor Tóth">
-        </div>
-        <div class="team-info">
-          <div class="team-name">Viktor Tóth</div>
-          <div class="team-role">CEO, Product and Service Owner</div>
-          <div class="team-skills">
-            <div class="team-skill">Product Strategy &amp; Ownership</div>
-            <div class="team-skill">Technology &amp; Team Leadership</div>
-            <div class="team-skill">Agile &amp; SCRUM Expertise</div>
-            <div class="team-skill">Cloud Platforms (AWS, SAP)</div>
-            <div class="team-skill">Software Development</div>
-            <div class="team-skill">Business Process Optimization</div>
-            <div class="team-skill">Cross-Functional Collaboration</div>
+        <div class="team-card-head">
+          <div class="team-img-wrap">
+            <img src="viktor01.png" alt="Viktor Tóth">
           </div>
+          <div class="team-info">
+            <div class="team-name">Viktor Tóth</div>
+            <div class="team-role">CEO, Product and Service Owner</div>
+          </div>
+        </div>
+        <div class="team-skills">
+          <div class="team-skill">Product Strategy &amp; Ownership</div>
+          <div class="team-skill">Technology &amp; Team Leadership</div>
+          <div class="team-skill">Agile &amp; SCRUM Expertise</div>
+          <div class="team-skill">Cloud Platforms (AWS, SAP)</div>
+          <div class="team-skill">Software Development</div>
+          <div class="team-skill">Business Process Optimization</div>
+          <div class="team-skill">Cross-Functional Collaboration</div>
         </div>
       </div>
       <!-- Nam -->
       <div class="team-card">
-        <div class="team-img-wrap">
-          <img src="nam01.png" alt="Hoang Nam Pham">
-        </div>
-        <div class="team-info">
-          <div class="team-name">Hoang Nam Pham</div>
-          <div class="team-role">Application Developer and DevOps Engineer</div>
-          <div class="team-skills">
-            <div class="team-skill">Frontend &amp; Cloud Operations</div>
-            <div class="team-skill">Angular Development</div>
-            <div class="team-skill">Data &amp; Integration Systems</div>
-            <div class="team-skill">Monitoring &amp; Observability</div>
-            <div class="team-skill">Web Technologies</div>
-            <div class="team-skill">Team Collaboration</div>
+        <div class="team-card-head">
+          <div class="team-img-wrap">
+            <img src="nam01.png" alt="Hoang Nam Pham">
           </div>
+          <div class="team-info">
+            <div class="team-name">Hoang Nam Pham</div>
+            <div class="team-role">Application Developer and DevOps Engineer</div>
+          </div>
+        </div>
+        <div class="team-skills">
+          <div class="team-skill">Frontend &amp; Cloud Operations</div>
+          <div class="team-skill">Angular Development</div>
+          <div class="team-skill">Data &amp; Integration Systems</div>
+          <div class="team-skill">Monitoring &amp; Observability</div>
+          <div class="team-skill">Web Technologies</div>
+          <div class="team-skill">Team Collaboration</div>
         </div>
       </div>
       <!-- Erik -->
       <div class="team-card">
-        <div class="team-img-wrap">
-          <img src="erik012.png" alt="Erik Sipos">
-        </div>
-        <div class="team-info">
-          <div class="team-name">Erik Sipos</div>
-          <div class="team-role">Software Developer and Business Analyst</div>
-          <div class="team-skills">
-            <div class="team-skill">Capital Markets</div>
-            <div class="team-skill">Banking Systems</div>
-            <div class="team-skill">Backend Engineering</div>
-            <div class="team-skill">Data &amp; Messaging Systems</div>
-            <div class="team-skill">System Modernization</div>
-            <div class="team-skill">Business Analysis</div>
+        <div class="team-card-head">
+          <div class="team-img-wrap">
+            <img src="erik012.png" alt="Erik Sipos">
           </div>
+          <div class="team-info">
+            <div class="team-name">Erik Sipos</div>
+            <div class="team-role">Software Developer and Business Analyst</div>
+          </div>
+        </div>
+        <div class="team-skills">
+          <div class="team-skill">Capital Markets</div>
+          <div class="team-skill">Banking Systems</div>
+          <div class="team-skill">Backend Engineering</div>
+          <div class="team-skill">Data &amp; Messaging Systems</div>
+          <div class="team-skill">System Modernization</div>
+          <div class="team-skill">Business Analysis</div>
         </div>
       </div>
       <!-- Dávid -->
       <div class="team-card">
-        <div class="team-img-wrap">
-          <img src="d%C3%A1vid01.png" alt="Dávid Bosnyák">
-        </div>
-        <div class="team-info">
-          <div class="team-name">Dávid Bosnyák</div>
-          <div class="team-role">Sales Expert, Technical Product Lead</div>
-          <div class="team-skills">
-            <div class="team-skill">Platform Migrations &amp; Integrations</div>
-            <div class="team-skill">Product &amp; Technical Strategy</div>
-            <div class="team-skill">Salesforce Architecture</div>
-            <div class="team-skill">Stakeholder Management &amp; Cross-Functional Leadership</div>
-            <div class="team-skill">Process Optimization</div>
-            <div class="team-skill">Data-Driven Solutions</div>
+        <div class="team-card-head">
+          <div class="team-img-wrap">
+            <img src="d%C3%A1vid01.png" alt="Dávid Bosnyák">
           </div>
+          <div class="team-info">
+            <div class="team-name">Dávid Bosnyák</div>
+            <div class="team-role">Sales Expert, Technical Product Lead</div>
+          </div>
+        </div>
+        <div class="team-skills">
+          <div class="team-skill">Platform Migrations &amp; Integrations</div>
+          <div class="team-skill">Product &amp; Technical Strategy</div>
+          <div class="team-skill">Salesforce Architecture</div>
+          <div class="team-skill">Stakeholder Management &amp; Cross-Functional Leadership</div>
+          <div class="team-skill">Process Optimization</div>
+          <div class="team-skill">Data-Driven Solutions</div>
         </div>
       </div>
     </div><!-- /team-grid -->
