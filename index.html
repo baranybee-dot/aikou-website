@@ -1249,7 +1249,7 @@ footer {
   .mob-dots-nav { display: flex; }
 
   #about .section-count { display: none; }
-  #about .section-head { margin-bottom: 4px; padding-bottom: 12px; }
+  #about .section-head { margin-bottom: 4px; padding-bottom: 12px; border-bottom: none; }
   #about .about-intro { margin-bottom: 28px; display: block; }
   .about-intro-text { display: block; width: 100%; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
   .about-pillars { display: none; }
@@ -1290,6 +1290,7 @@ footer {
 
   /* ── Services → peek carousel ── */
   #services .section-count { display: none; }
+  #services .section-head { border-bottom: none; margin-bottom: 16px; padding-bottom: 0; }
   .svc-prev, .svc-next { display: none !important; }
   #svc-dots { display: none; }
 
@@ -1302,6 +1303,7 @@ footer {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     scroll-snap-type: x mandatory;
+    scroll-padding-left: 9vw;
     -webkit-mask-image: linear-gradient(to right, black 76%, transparent 100%);
     mask-image: linear-gradient(to right, black 76%, transparent 100%);
   }
@@ -1311,12 +1313,12 @@ footer {
     flex-wrap: nowrap !important;
     gap: 10px !important;
     transition: none !important;
-    padding: 4px 16px 16px;
+    padding: 4px 9vw 16px;
   }
   .service-card {
-    flex: 0 0 82% !important;
+    flex: 0 0 82vw !important;
     max-width: unset !important;
-    scroll-snap-align: start;
+    scroll-snap-align: center;
     min-height: 62vh;
   }
 
