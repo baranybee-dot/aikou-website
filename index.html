@@ -1244,8 +1244,9 @@ footer {
   /* Contact */
   .contact-details { gap: 24px; }
 
-  /* ── Team → slider ── */
+  /* ── Team → native scroll carousel ── */
   .mob-arrow { display: flex; }
+  .team-prev, .team-next { display: none !important; }
   .mob-dots-nav { display: flex; }
 
   #about .section-count { display: none; }
@@ -1279,20 +1280,32 @@ footer {
   }
   .team-role { margin-bottom: 0; }
 
-  .team-slider-box { overflow: hidden; }
+  #about .team-slider-outer { margin: 0 -16px; }
+  .team-slider-box {
+    overflow-x: scroll !important;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 9vw;
+    -webkit-mask-image: linear-gradient(to right, black 76%, transparent 100%);
+    mask-image: linear-gradient(to right, black 76%, transparent 100%);
+  }
+  .team-slider-box::-webkit-scrollbar { display: none; }
   .team-grid {
     display: flex !important;
-    flex-wrap: nowrap;
-    gap: 0 !important;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-wrap: nowrap !important;
+    gap: 10px !important;
+    transition: none !important;
+    padding: 4px 9vw 16px;
   }
-  .team-card { flex: 0 0 100%; max-width: 100%; }
+  .team-card { flex: 0 0 82vw !important; max-width: unset !important; scroll-snap-align: center; }
 
   /* ── Services → peek carousel ── */
   #services .section-count { display: none; }
   #services .section-head { border-bottom: none; margin-bottom: 16px; padding-bottom: 0; }
   .svc-prev, .svc-next { display: none !important; }
-  #svc-dots { display: none; }
+  #svc-dots { display: flex; }
 
   .services-slider-outer {
     margin: 0 -16px;
@@ -1319,7 +1332,7 @@ footer {
     flex: 0 0 82vw !important;
     max-width: unset !important;
     scroll-snap-align: center;
-    min-height: 62vh;
+    min-height: 50vh;
   }
 
   /* ── Project slider ── */
@@ -2049,37 +2062,41 @@ window.addEventListener('scroll', () => {
   startAuto();
 }());
 
-/* ── Team Slider (mobile) ── */
-(function () {
-  var track = document.querySelector('.team-grid');
-  var dots  = document.querySelectorAll('#team-dots .mob-dot');
-  var total = document.querySelectorAll('.team-card').length;
-  var cur   = 0;
-
-  function goTo(n) {
-    cur = (n + total) % total;
-    track.style.transform = 'translateX(-' + (cur * 100) + '%)';
-    dots.forEach(function (d, i) { d.classList.toggle('active', i === cur); });
-  }
-
-  document.querySelector('.team-prev').addEventListener('click', function () { goTo(cur - 1); });
-  document.querySelector('.team-next').addEventListener('click', function () { goTo(cur + 1); });
-  dots.forEach(function (d, i) { d.addEventListener('click', function () { goTo(i); }); });
-
-  /* Touch swipe support */
-  var sliderBox = document.querySelector('.team-slider-box');
-  var touchStartX = 0;
-  sliderBox.addEventListener('touchstart', function (e) {
-    touchStartX = e.changedTouches[0].screenX;
-  }, { passive: true });
-  sliderBox.addEventListener('touchend', function (e) {
-    var diff = touchStartX - e.changedTouches[0].screenX;
-    if (Math.abs(diff) > 40) { goTo(diff > 0 ? cur + 1 : cur - 1); }
-  }, { passive: true });
-}());
-
-/* ── Services Slider (desktop only — mobile uses native scroll) ── */
+/* ── Team Slider ── */
 if (window.innerWidth > 640) {
+  /* Desktop: JS-driven transform */
+  (function () {
+    var track = document.querySelector('.team-grid');
+    var dots  = document.querySelectorAll('#team-dots .mob-dot');
+    var total = document.querySelectorAll('.team-card').length;
+    var cur   = 0;
+
+    function goTo(n) {
+      cur = (n + total) % total;
+      track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+      dots.forEach(function (d, i) { d.classList.toggle('active', i === cur); });
+    }
+
+    document.querySelector('.team-prev').addEventListener('click', function () { goTo(cur - 1); });
+    document.querySelector('.team-next').addEventListener('click', function () { goTo(cur + 1); });
+    dots.forEach(function (d, i) { d.addEventListener('click', function () { goTo(i); }); });
+  }());
+} else {
+  /* Mobile: native scroll — sync dots on scroll */
+  (function () {
+    var teamBox  = document.querySelector('.team-slider-box');
+    var teamDots = document.querySelectorAll('#team-dots .mob-dot');
+    var cardW    = 82 * window.innerWidth / 100 + 10; /* 82vw + 10px gap */
+    teamBox.addEventListener('scroll', function () {
+      var idx = Math.round(teamBox.scrollLeft / cardW);
+      teamDots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+    }, { passive: true });
+  }());
+}
+
+/* ── Services Slider ── */
+if (window.innerWidth > 640) {
+  /* Desktop: JS-driven transform */
   (function () {
     var track = document.querySelector('.services-grid');
     var dots  = document.querySelectorAll('#svc-dots .mob-dot');
@@ -2095,6 +2112,17 @@ if (window.innerWidth > 640) {
     document.querySelector('.svc-prev').addEventListener('click', function () { goTo(cur - 1); });
     document.querySelector('.svc-next').addEventListener('click', function () { goTo(cur + 1); });
     dots.forEach(function (d, i) { d.addEventListener('click', function () { goTo(i); }); });
+  }());
+} else {
+  /* Mobile: native scroll — sync dots on scroll */
+  (function () {
+    var svcBox  = document.querySelector('.services-slider-box');
+    var svcDots = document.querySelectorAll('#svc-dots .mob-dot');
+    var cardW   = 82 * window.innerWidth / 100 + 10; /* 82vw + 10px gap */
+    svcBox.addEventListener('scroll', function () {
+      var idx = Math.round(svcBox.scrollLeft / cardW);
+      svcDots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+    }, { passive: true });
   }());
 }
 </script>
