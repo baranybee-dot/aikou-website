@@ -289,6 +289,8 @@ nav {
   padding: 80px 0;
 }
 
+br.mob { display: none; }
+.mob-dot { display: none; }
 .hero-tag { margin-bottom: 28px; }
 
 .hero-h1 {
@@ -1179,16 +1181,46 @@ footer {
   .section-count { margin-top: 2px; }
 
   /* Hero */
-  .hero-inner { padding: 32px 0 24px; gap: 32px; }
-  .hero-h1 { font-size: clamp(28px, 7.5vw, 36px); margin-bottom: 16px; }
-  .hero-tag { margin-bottom: 14px; }
-  .hero-body { font-size: 13px; margin-bottom: 24px; line-height: 1.7; }
-  .hero-actions { flex-direction: row; gap: 10px; }
-  .btn-primary, .btn-outline { font-size: 8px; padding: 11px 16px; flex: 1; justify-content: center; }
-  .hero-stats { gap: 8px; margin-top: 8px; }
-  .stat-card { padding: 16px 12px; }
-  .stat-num { font-size: 28px; }
-  .stat-label { font-size: 7px; }
+  #hero { height: 100svh; min-height: unset; display: flex; flex-direction: column; align-items: stretch; overflow: hidden; }
+  #hero .container { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  br.mob { display: inline; }
+  .mob-dot { display: inline; }
+  .hero-inner {
+    flex: 1;
+    padding: 20px 0 80px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+  }
+  .hero-inner > div:first-child { flex: 1; }
+  .hero-tag { display: none; }
+  .hero-body { display: none; }
+  .hero-h1 { font-size: 48px; margin-bottom: 0; line-height: 1.1; }
+  .hero-stats {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 62px;
+    flex-shrink: 0;
+    gap: 10px;
+    align-self: center;
+  }
+  .stat-card { padding: 11px 6px; }
+  .stat-num { font-size: 20px; }
+  .stat-num span { font-size: 14px; }
+  .stat-label { font-size: 6px; letter-spacing: 0.08em; line-height: 1.5; }
+  .hero-actions {
+    position: absolute;
+    bottom: 16px;
+    left: 0;
+    right: 0;
+    flex-direction: row;
+    gap: 8px;
+    margin-bottom: 0;
+    padding: 0;
+  }
+  .btn-primary, .btn-outline { font-size: 8px; padding: 13px 14px; flex: 1; justify-content: center; white-space: nowrap; }
 
   /* About intro */
   .about-intro { margin-bottom: 40px; }
@@ -1281,9 +1313,7 @@ footer {
     <div class="hero-inner">
       <div>
         <div class="hero-tag label fade-up d1">AIKOU TECHNOLOGIES</div>
-        <h1 class="hero-h1 fade-up d2">
-          We engineer <em>Generative AI</em> solutions that power intelligent digital products.
-        </h1>
+        <h1 class="hero-h1 fade-up d2">We engineer<br class="mob"> <em>Generative<br class="mob"> AI</em> solutions<br class="mob"> that power<br class="mob"> intelligent<span class="mob-dot">.</span><br class="mob"> digital<br class="mob"> products.</h1>
         <p class="hero-body fade-up d3">Tailored to your exact needs. Precise, fast delivery powered by the latest AI technology, built by experts.</p>
         <div class="hero-actions fade-up d4">
           <a href="#services" class="btn-primary">Explore Services <span class="arrow"></span></a>
