@@ -1342,16 +1342,17 @@ footer {
   #projects .section-count { display: none; }
   #projects .section-head { border-bottom: none; padding-bottom: 0; margin-bottom: 20px; }
   #projects::after {
-    background: linear-gradient(45deg, transparent 25%, rgba(0,200,255,0.06) 60%, rgba(0,200,255,0.14) 100%);
+    background: linear-gradient(135deg, rgba(0,200,255,0.14) 0%, rgba(0,200,255,0.06) 40%, transparent 75%);
   }
 
   .proj-mob-grid {
     display: flex;
+    flex-direction: column;
     gap: 10px;
   }
   .proj-mob-card {
-    flex: 1;
-    padding: 16px 8px;
+    flex: none;
+    padding: 22px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
