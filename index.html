@@ -1246,6 +1246,32 @@ footer {
   .mob-arrow { display: flex; }
   .mob-dots-nav { display: flex; }
 
+  #about .section-count { display: none; }
+  #about .section-head { margin-bottom: 8px; }
+  #about .about-intro { margin-bottom: 28px; }
+  .about-pillars { display: none; }
+  .team-skills { display: none; }
+
+  .team-card {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+  }
+  .team-img-wrap {
+    width: 110px;
+    flex-shrink: 0;
+    aspect-ratio: unset;
+    min-height: 130px;
+  }
+  .team-info {
+    flex: 1;
+    padding: 14px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .team-role { margin-bottom: 0; }
+
   .team-slider-box { overflow: hidden; }
   .team-grid {
     display: flex !important;
@@ -2000,6 +2026,17 @@ window.addEventListener('scroll', () => {
   document.querySelector('.team-prev').addEventListener('click', function () { goTo(cur - 1); });
   document.querySelector('.team-next').addEventListener('click', function () { goTo(cur + 1); });
   dots.forEach(function (d, i) { d.addEventListener('click', function () { goTo(i); }); });
+
+  /* Touch swipe support */
+  var sliderBox = document.querySelector('.team-slider-box');
+  var touchStartX = 0;
+  sliderBox.addEventListener('touchstart', function (e) {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+  sliderBox.addEventListener('touchend', function (e) {
+    var diff = touchStartX - e.changedTouches[0].screenX;
+    if (Math.abs(diff) > 40) { goTo(diff > 0 ? cur + 1 : cur - 1); }
+  }, { passive: true });
 }());
 
 /* ── Services Slider (mobile) ── */
