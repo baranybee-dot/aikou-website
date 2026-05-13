@@ -291,6 +291,8 @@ nav {
 
 br.mob { display: none; }
 .mob-dot { display: none; }
+.proj-mob-grid { display: none; }
+.proj-mob-modal { display: none; }
 .hero-tag { margin-bottom: 28px; }
 
 .hero-h1 {
@@ -1335,10 +1337,119 @@ footer {
     min-height: 50vh;
   }
 
-  /* ── Project slider ── */
-  .project-slider-outer { gap: 6px; }
-  .proj-arrow { width: 32px; height: 32px; }
-  .proj-arrow svg { width: 14px; height: 14px; }
+  /* ── Projects → tap cards + modal ── */
+  .project-slider-outer { display: none; }
+  #projects .section-count { display: none; }
+  #projects .section-head { border-bottom: none; padding-bottom: 0; margin-bottom: 20px; }
+
+  .proj-mob-grid {
+    display: flex;
+    gap: 10px;
+  }
+  .proj-mob-card {
+    flex: 1;
+    border: 1px solid rgba(0, 200, 255, 0.25);
+    box-shadow: 0 0 10px rgba(0, 200, 255, 0.12);
+    padding: 16px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 7px;
+    cursor: pointer;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  .proj-mob-card:active {
+    border-color: rgba(0, 200, 255, 0.6);
+    box-shadow: 0 0 16px rgba(0, 200, 255, 0.25);
+  }
+  .proj-mob-name {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .proj-mob-tag {
+    font-family: var(--mono);
+    font-size: 6.5px;
+    color: var(--cyan);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+
+  /* Modal sheet */
+  .proj-mob-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  .proj-mob-modal.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .proj-mob-modal-inner {
+    background: var(--surface);
+    border-top: 1px solid rgba(0, 200, 255, 0.2);
+    max-height: 88vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 28px 20px 48px;
+    position: relative;
+    transform: translateY(32px);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .proj-mob-modal.open .proj-mob-modal-inner {
+    transform: translateY(0);
+  }
+  .proj-mob-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--white);
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .proj-mob-modal-content .project-logo {
+    font-size: 28px;
+    margin-bottom: 6px;
+  }
+  .proj-mob-modal-content .project-tagline {
+    margin-bottom: 16px;
+  }
+  .proj-mob-modal-content .project-desc {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+  .proj-mob-modal-content .project-tags {
+    margin-bottom: 20px;
+  }
+  .proj-mob-modal-content .project-visual {
+    width: 100%;
+    margin-top: 20px;
+  }
+  .proj-mob-modal-content .project-visual img {
+    width: 100%;
+    height: auto;
+  }
 }
 </style>
 </head>
@@ -1753,8 +1864,32 @@ footer {
       </button>
 
     </div><!-- /project-slider-outer -->
+
+    <!-- Mobile: 3 tap-cards -->
+    <div class="proj-mob-grid">
+      <div class="proj-mob-card" data-proj="neoscan">
+        <div class="proj-mob-name">neoscan</div>
+        <div class="proj-mob-tag">AI-Powered Skin Lesion Analysis</div>
+      </div>
+      <div class="proj-mob-card" data-proj="lume">
+        <div class="proj-mob-name">lumé</div>
+        <div class="proj-mob-tag">AI-Powered Beauty Coaching App</div>
+      </div>
+      <div class="proj-mob-card" data-proj="haigo">
+        <div class="proj-mob-name">haigo</div>
+        <div class="proj-mob-tag">AI-Powered Recommendation Platform</div>
+      </div>
+    </div>
   </div>
 </section>
+
+<!-- Mobile: project detail modal -->
+<div class="proj-mob-modal" id="proj-mob-modal" aria-modal="true" role="dialog">
+  <div class="proj-mob-modal-inner">
+    <button class="proj-mob-close" aria-label="Close">✕</button>
+    <div class="proj-mob-modal-content" id="proj-mob-content"></div>
+  </div>
+</div>
 
 <!-- ─── CONTACT ─── -->
 <section id="contact" class="section">
@@ -2123,6 +2258,43 @@ if (window.innerWidth > 640) {
       var idx = Math.round(svcBox.scrollLeft / cardW);
       svcDots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
     }, { passive: true });
+  }());
+}
+
+/* ── Project tap-cards + modal (mobile) ── */
+if (window.innerWidth <= 640) {
+  (function () {
+    var modal   = document.getElementById('proj-mob-modal');
+    var content = document.getElementById('proj-mob-content');
+
+    var projContent = {
+      neoscan: document.querySelector('.slide-neoscan .project-info').innerHTML
+             + document.querySelector('.slide-neoscan .project-visual').outerHTML,
+      lume:    document.querySelector('.slide-lume .project-info').innerHTML
+             + document.querySelector('.slide-lume .project-visual').outerHTML,
+      haigo:   document.querySelector('.slide-haigo .project-info').innerHTML
+             + document.querySelector('.slide-haigo .project-visual').outerHTML
+    };
+
+    function openModal(proj) {
+      content.innerHTML = projContent[proj];
+      modal.style.display = 'flex';
+      requestAnimationFrame(function () { modal.classList.add('open'); });
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+      setTimeout(function () { modal.style.display = 'none'; }, 280);
+    }
+
+    document.querySelectorAll('.proj-mob-card').forEach(function (card) {
+      card.addEventListener('click', function () { openModal(card.getAttribute('data-proj')); });
+    });
+
+    document.querySelector('.proj-mob-close').addEventListener('click', closeModal);
+    modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
   }());
 }
 </script>
