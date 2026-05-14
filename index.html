@@ -1244,7 +1244,16 @@ footer {
   .footer-links { display: none; }
 
   /* Contact */
-  .contact-details { gap: 24px; }
+  #contact .section-head { border-bottom: none; padding-bottom: 0; margin-bottom: 14px; }
+  .contact-inner { gap: 0; }
+  .contact-left { padding: 22px 20px; }
+  .contact-right { padding: 20px; gap: 12px; }
+  .contact-heading { font-size: 20px; margin-bottom: 8px; line-height: 1.25; }
+  .contact-sub { font-size: 12px; line-height: 1.6; margin-bottom: 14px; }
+  .contact-email { padding: 10px 0; font-size: 13px; }
+  .contact-left > div + div { margin-top: 14px !important; }
+  .field-textarea { min-height: 64px; }
+  .send-btn { align-self: stretch; justify-content: center; padding: 12px 20px; }
 
   /* ── Team → native scroll carousel ── */
   .mob-arrow { display: flex; }
