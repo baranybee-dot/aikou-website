@@ -937,6 +937,9 @@ br.mob { display: none; }
   margin-bottom: 48px;
 }
 
+.contact-location-wrap { margin-top: 40px; }
+.contact-location-wrap .label { margin-bottom: 12px; }
+
 .contact-email {
   font-family: var(--sans);
   font-size: 15px;
@@ -1261,6 +1264,9 @@ footer {
   .footer-links { display: none; }
 
   /* Contact */
+  .contact-tagline { display: none; }
+  .contact-location-wrap { margin-top: 16px !important; display: flex; align-items: center; gap: 12px; }
+  .contact-location-wrap .label { margin-bottom: 0; }
   #contact .section-head { border-bottom: none; padding-bottom: 0; margin-bottom: 14px; }
   .contact-inner { gap: 0; }
   .contact-left { padding: 22px 20px; }
@@ -1960,10 +1966,10 @@ footer {
       <div class="contact-left">
         <div>
           <h2 class="contact-heading">Have a question or want to <span>work with us?</span></h2>
-          <p class="contact-sub">We're a small, senior team, every project gets our full attention.</p>
+          <p class="contact-sub">We're a small, senior team, every project gets our full attention. <span class="contact-tagline">Tell us what you're building.</span></p>
           <a class="contact-email" href="mailto:info@aikou.tech">info@aikou.tech</a>
         </div>
-        <div style="margin-top:16px;display:flex;align-items:center;gap:12px">
+        <div class="contact-location-wrap">
           <div class="label">Location</div>
           <div style="font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--muted2)">Budapest, Hungary</div>
         </div>
