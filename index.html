@@ -410,7 +410,8 @@ br.mob { display: none; }
 
 .stat-card {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid rgba(0, 200, 255, 0.25);
+  box-shadow: 0 0 10px rgba(0, 200, 255, 0.1);
   padding: 32px 28px;
   position: relative;
   overflow: hidden;
@@ -656,6 +657,14 @@ br.mob { display: none; }
 }
 .service-card:hover::before { opacity: 1; }
 .service-card:hover { border-color: var(--border2); }
+
+.service-card::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--cyan), transparent);
+}
 
 .service-icon {
   width: 36px; height: 36px;
@@ -1466,7 +1475,7 @@ footer {
     max-height: 88vh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 28px 20px 48px;
+    padding: 0 0 48px;
     position: relative;
     transform: translateY(32px);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1474,10 +1483,16 @@ footer {
   .proj-mob-modal.open .proj-mob-modal-inner {
     transform: translateY(0);
   }
+  .proj-mob-modal-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--surface);
+    display: flex;
+    justify-content: flex-end;
+    padding: 12px 14px 8px;
+  }
   .proj-mob-close {
-    position: absolute;
-    top: 14px;
-    right: 14px;
     background: none;
     border: 1px solid var(--border);
     color: var(--white);
@@ -1489,6 +1504,7 @@ footer {
     align-items: center;
     justify-content: center;
   }
+  .proj-mob-modal-content { padding: 0 20px 0; }
   .proj-mob-modal-content .project-logo {
     font-size: 28px;
     margin-bottom: 6px;
@@ -1947,7 +1963,9 @@ footer {
 <!-- Mobile: project detail modal -->
 <div class="proj-mob-modal" id="proj-mob-modal" aria-modal="true" role="dialog">
   <div class="proj-mob-modal-inner">
-    <button class="proj-mob-close" aria-label="Close">✕</button>
+    <div class="proj-mob-modal-header">
+      <button class="proj-mob-close" aria-label="Close">✕</button>
+    </div>
     <div class="proj-mob-modal-content" id="proj-mob-content"></div>
   </div>
 </div>
