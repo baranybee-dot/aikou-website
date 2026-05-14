@@ -2316,45 +2316,16 @@ if (window.innerWidth > 640) {
     dots.forEach(function (d, i) { d.addEventListener('click', function () { goTo(i); }); });
   }());
 } else {
-  /* Mobile: infinite native scroll */
+  /* Mobile: native scroll with dot sync */
   (function () {
-    var box   = document.querySelector('.team-slider-box');
-    var track = document.querySelector('.team-grid');
-    var dots  = Array.from(document.querySelectorAll('#team-dots .mob-dot'));
-    var n     = dots.length;
+    var box  = document.querySelector('.team-slider-box');
+    var dots = Array.from(document.querySelectorAll('#team-dots .mob-dot'));
+    var n    = dots.length;
     var cardW = 0.82 * window.innerWidth + 10;
 
-    /* Clone all cards: prepend + append for infinite loop */
-    var real = Array.from(track.children);
-    real.forEach(function (c) {
-      var cl = c.cloneNode(true); cl.setAttribute('aria-hidden','true');
-      cl.style.opacity = '1'; cl.style.transform = '';
-      track.appendChild(cl);
-    });
-    var frag = document.createDocumentFragment();
-    real.forEach(function (c) {
-      var cl = c.cloneNode(true); cl.setAttribute('aria-hidden','true');
-      cl.style.opacity = '1'; cl.style.transform = '';
-      frag.appendChild(cl);
-    });
-    track.insertBefore(frag, track.firstChild);
-
-    /* Start at first real card */
-    box.scrollLeft = cardW * n;
-
-    var correcting = false;
     box.addEventListener('scroll', function () {
-      if (correcting) return;
-      var pos = box.scrollLeft;
-      var range = cardW * n;
-      if (pos >= range * 2) {
-        correcting = true; box.scrollLeft = pos - range;
-        requestAnimationFrame(function () { correcting = false; });
-      } else if (pos < range) {
-        correcting = true; box.scrollLeft = pos + range;
-        requestAnimationFrame(function () { correcting = false; });
-      }
-      var idx = ((Math.round((box.scrollLeft - cardW * n) / cardW) % n) + n) % n;
+      var idx = Math.round(box.scrollLeft / cardW);
+      idx = Math.max(0, Math.min(idx, n - 1));
       dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
     }, { passive: true });
   }());
@@ -2380,43 +2351,21 @@ if (window.innerWidth > 640) {
     dots.forEach(function (d, i) { d.addEventListener('click', function () { goTo(i); }); });
   }());
 } else {
-  /* Mobile: infinite native scroll */
+  /* Mobile: native scroll with dot sync */
   (function () {
-    var box   = document.querySelector('.services-slider-box');
-    var track = document.querySelector('.services-grid');
-    var dots  = Array.from(document.querySelectorAll('#svc-dots .mob-dot'));
-    var n     = dots.length;
+    var box  = document.querySelector('.services-slider-box');
+    var dots = Array.from(document.querySelectorAll('#svc-dots .mob-dot'));
+    var n    = dots.length;
     var cardW = 0.82 * window.innerWidth + 10;
 
-    var real = Array.from(track.children);
-    /* Reset any opacity:0 the IntersectionObserver set before this runs */
-    real.forEach(function (c) { c.style.opacity = '1'; c.style.transform = ''; });
-    real.forEach(function (c) {
-      var cl = c.cloneNode(true); cl.setAttribute('aria-hidden','true');
-      track.appendChild(cl);
+    /* Reset any opacity:0 the IntersectionObserver may have set */
+    document.querySelectorAll('.service-card').forEach(function (c) {
+      c.style.opacity = '1'; c.style.transform = '';
     });
-    var frag = document.createDocumentFragment();
-    real.forEach(function (c) {
-      var cl = c.cloneNode(true); cl.setAttribute('aria-hidden','true');
-      frag.appendChild(cl);
-    });
-    track.insertBefore(frag, track.firstChild);
 
-    box.scrollLeft = cardW * n;
-
-    var correcting = false;
     box.addEventListener('scroll', function () {
-      if (correcting) return;
-      var pos = box.scrollLeft;
-      var range = cardW * n;
-      if (pos >= range * 2) {
-        correcting = true; box.scrollLeft = pos - range;
-        requestAnimationFrame(function () { correcting = false; });
-      } else if (pos < range) {
-        correcting = true; box.scrollLeft = pos + range;
-        requestAnimationFrame(function () { correcting = false; });
-      }
-      var idx = ((Math.round((box.scrollLeft - cardW * n) / cardW) % n) + n) % n;
+      var idx = Math.round(box.scrollLeft / cardW);
+      idx = Math.max(0, Math.min(idx, n - 1));
       dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
     }, { passive: true });
   }());
