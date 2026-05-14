@@ -1488,8 +1488,24 @@ footer {
     z-index: 20;
     background: var(--surface);
     display: flex;
-    justify-content: flex-end;
-    padding: 12px 14px 8px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 14px 12px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .proj-mob-modal-titles {
+    flex: 1;
+    min-width: 0;
+  }
+  .proj-mob-modal-titles .project-logo {
+    font-size: 20px;
+    margin-bottom: 3px;
+  }
+  .proj-mob-modal-titles .project-tagline {
+    font-size: 7.5px;
+    margin-bottom: 0;
+    opacity: 0.85;
   }
   .proj-mob-close {
     background: none;
@@ -1497,13 +1513,14 @@ footer {
     color: var(--white);
     width: 30px;
     height: 30px;
+    flex-shrink: 0;
     font-size: 13px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .proj-mob-modal-content { padding: 0 20px 0; }
+  .proj-mob-modal-content { padding: 20px 20px 0; }
   .proj-mob-modal-content .project-logo {
     font-size: 28px;
     margin-bottom: 6px;
@@ -1963,6 +1980,7 @@ footer {
 <div class="proj-mob-modal" id="proj-mob-modal" aria-modal="true" role="dialog">
   <div class="proj-mob-modal-inner">
     <div class="proj-mob-modal-header">
+      <div class="proj-mob-modal-titles" id="proj-mob-titles"></div>
       <button class="proj-mob-close" aria-label="Close">✕</button>
     </div>
     <div class="proj-mob-modal-content" id="proj-mob-content"></div>
@@ -2295,14 +2313,46 @@ if (window.innerWidth > 640) {
     dots.forEach(function (d, i) { d.addEventListener('click', function () { goTo(i); }); });
   }());
 } else {
-  /* Mobile: native scroll — sync dots on scroll */
+  /* Mobile: infinite native scroll */
   (function () {
-    var teamBox  = document.querySelector('.team-slider-box');
-    var teamDots = document.querySelectorAll('#team-dots .mob-dot');
-    var cardW    = 82 * window.innerWidth / 100 + 10; /* 82vw + 10px gap */
-    teamBox.addEventListener('scroll', function () {
-      var idx = Math.round(teamBox.scrollLeft / cardW);
-      teamDots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+    var box   = document.querySelector('.team-slider-box');
+    var track = document.querySelector('.team-grid');
+    var dots  = Array.from(document.querySelectorAll('#team-dots .mob-dot'));
+    var n     = dots.length;
+    var cardW = 0.82 * window.innerWidth + 10;
+
+    /* Clone all cards: prepend + append for infinite loop */
+    var real = Array.from(track.children);
+    real.forEach(function (c) {
+      var cl = c.cloneNode(true); cl.setAttribute('aria-hidden','true');
+      cl.style.opacity = '1'; cl.style.transform = '';
+      track.appendChild(cl);
+    });
+    var frag = document.createDocumentFragment();
+    real.forEach(function (c) {
+      var cl = c.cloneNode(true); cl.setAttribute('aria-hidden','true');
+      cl.style.opacity = '1'; cl.style.transform = '';
+      frag.appendChild(cl);
+    });
+    track.insertBefore(frag, track.firstChild);
+
+    /* Start at first real card */
+    box.scrollLeft = cardW * n;
+
+    var correcting = false;
+    box.addEventListener('scroll', function () {
+      if (correcting) return;
+      var pos = box.scrollLeft;
+      var range = cardW * n;
+      if (pos >= range * 2) {
+        correcting = true; box.scrollLeft = pos - range;
+        requestAnimationFrame(function () { correcting = false; });
+      } else if (pos < range) {
+        correcting = true; box.scrollLeft = pos + range;
+        requestAnimationFrame(function () { correcting = false; });
+      }
+      var idx = ((Math.round((box.scrollLeft - cardW * n) / cardW) % n) + n) % n;
+      dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
     }, { passive: true });
   }());
 }
@@ -2327,14 +2377,42 @@ if (window.innerWidth > 640) {
     dots.forEach(function (d, i) { d.addEventListener('click', function () { goTo(i); }); });
   }());
 } else {
-  /* Mobile: native scroll — sync dots on scroll */
+  /* Mobile: infinite native scroll */
   (function () {
-    var svcBox  = document.querySelector('.services-slider-box');
-    var svcDots = document.querySelectorAll('#svc-dots .mob-dot');
-    var cardW   = 82 * window.innerWidth / 100 + 10; /* 82vw + 10px gap */
-    svcBox.addEventListener('scroll', function () {
-      var idx = Math.round(svcBox.scrollLeft / cardW);
-      svcDots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+    var box   = document.querySelector('.services-slider-box');
+    var track = document.querySelector('.services-grid');
+    var dots  = Array.from(document.querySelectorAll('#svc-dots .mob-dot'));
+    var n     = dots.length;
+    var cardW = 0.82 * window.innerWidth + 10;
+
+    var real = Array.from(track.children);
+    real.forEach(function (c) {
+      var cl = c.cloneNode(true); cl.setAttribute('aria-hidden','true');
+      track.appendChild(cl);
+    });
+    var frag = document.createDocumentFragment();
+    real.forEach(function (c) {
+      var cl = c.cloneNode(true); cl.setAttribute('aria-hidden','true');
+      frag.appendChild(cl);
+    });
+    track.insertBefore(frag, track.firstChild);
+
+    box.scrollLeft = cardW * n;
+
+    var correcting = false;
+    box.addEventListener('scroll', function () {
+      if (correcting) return;
+      var pos = box.scrollLeft;
+      var range = cardW * n;
+      if (pos >= range * 2) {
+        correcting = true; box.scrollLeft = pos - range;
+        requestAnimationFrame(function () { correcting = false; });
+      } else if (pos < range) {
+        correcting = true; box.scrollLeft = pos + range;
+        requestAnimationFrame(function () { correcting = false; });
+      }
+      var idx = ((Math.round((box.scrollLeft - cardW * n) / cardW) % n) + n) % n;
+      dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
     }, { passive: true });
   }());
 }
@@ -2343,15 +2421,25 @@ if (window.innerWidth > 640) {
 if (window.innerWidth <= 640) {
   (function () {
     var modal   = document.getElementById('proj-mob-modal');
+    var titles  = document.getElementById('proj-mob-titles');
     var content = document.getElementById('proj-mob-content');
 
-    var projContent = {
-      neoscan: document.querySelector('.slide-neoscan .project-info').innerHTML
-             + document.querySelector('.slide-neoscan .project-visual').outerHTML,
-      lume:    document.querySelector('.slide-lume .project-info').innerHTML
-             + document.querySelector('.slide-lume .project-visual').outerHTML,
-      haigo:   document.querySelector('.slide-haigo .project-info').innerHTML
-             + document.querySelector('.slide-haigo .project-visual').outerHTML
+    function getProjData(cls) {
+      var slide = document.querySelector('.' + cls);
+      return {
+        header: slide.querySelector('.project-logo').outerHTML
+              + slide.querySelector('.project-tagline').outerHTML,
+        body:   slide.querySelector('.project-desc').outerHTML
+              + slide.querySelector('.project-tags').outerHTML
+              + slide.querySelector('.project-info > div:last-child').outerHTML
+              + slide.querySelector('.project-visual').outerHTML
+      };
+    }
+
+    var projData = {
+      neoscan: getProjData('slide-neoscan'),
+      lume:    getProjData('slide-lume'),
+      haigo:   getProjData('slide-haigo')
     };
 
     var accentMap = {
@@ -2361,10 +2449,14 @@ if (window.innerWidth <= 640) {
     };
 
     function openModal(proj) {
-      content.innerHTML = projContent[proj];
-      content.className = 'proj-mob-modal-content slide-' + proj;
+      var data = projData[proj];
+      titles.innerHTML   = data.header;
+      titles.className   = 'proj-mob-modal-titles slide-' + proj;
+      content.innerHTML  = data.body;
+      content.className  = 'proj-mob-modal-content slide-' + proj;
       var inner = modal.querySelector('.proj-mob-modal-inner');
       inner.style.setProperty('--proj-accent', accentMap[proj] || 'rgba(0,200,255,0.4)');
+      modal.querySelector('.proj-mob-modal-inner').scrollTop = 0;
       modal.style.display = 'flex';
       requestAnimationFrame(function () { modal.classList.add('open'); });
       document.body.style.overflow = 'hidden';
