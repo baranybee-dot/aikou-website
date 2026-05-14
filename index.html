@@ -959,27 +959,6 @@ br.mob { display: none; }
   color: var(--cyan);
 }
 
-.contact-location {
-  font-family: var(--sans);
-  font-size: 15px;
-  font-weight: 400;
-  color: var(--white);
-  letter-spacing: 0.03em;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 20px 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  margin-top: -1px; /* collapse double border with email */
-}
-.contact-location::before {
-  content: '→';
-  font-size: 16px;
-  color: var(--cyan);
-  flex-shrink: 0;
-}
-
 .contact-right {
   background: var(--surface2);
   border: 1px solid var(--border);
@@ -1272,7 +1251,6 @@ footer {
   .contact-heading { font-size: 20px; margin-bottom: 8px; line-height: 1.25; }
   .contact-sub { font-size: 12px; line-height: 1.6; margin-bottom: 14px; }
   .contact-email { padding: 10px 0; font-size: 13px; }
-  .contact-location { padding: 10px 0; font-size: 13px; }
   .field-textarea { min-height: 64px; }
   .send-btn { align-self: stretch; justify-content: center; padding: 12px 20px; }
 
@@ -1967,7 +1945,10 @@ footer {
           <p class="contact-sub">We're a small, senior team, every project gets our full attention.</p>
           <a class="contact-email" href="mailto:info@aikou.tech">info@aikou.tech</a>
         </div>
-        <div class="contact-location">Budapest, Hungary</div>
+        <div style="margin-top:16px">
+          <div class="label" style="margin-bottom:6px">Location</div>
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--muted2)">Budapest, Hungary</div>
+        </div>
       </div>
 
       <form class="contact-right" id="contact-form" method="POST" action="YOUR_FORMSPREE_ENDPOINT">
