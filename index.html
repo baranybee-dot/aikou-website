@@ -1531,6 +1531,8 @@ footer {
   .proj-mob-modal-content .project-desc {
     font-size: 13px;
     margin-bottom: 16px;
+    border-top: none;
+    padding-top: 0;
   }
   .proj-mob-modal-content .project-tags {
     margin-bottom: 20px;
@@ -2354,6 +2356,22 @@ if (window.innerWidth > 640) {
       var idx = ((Math.round((box.scrollLeft - cardW * n) / cardW) % n) + n) % n;
       dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
     }, { passive: true });
+
+    /* Single-card-per-swipe + diagonal swipe support */
+    var tsX = 0, tsY = 0;
+    box.addEventListener('touchstart', function (e) {
+      tsX = e.touches[0].clientX;
+      tsY = e.touches[0].clientY;
+    }, { passive: true });
+    box.addEventListener('touchend', function (e) {
+      var dx = tsX - e.changedTouches[0].clientX;
+      var dy = tsY - e.changedTouches[0].clientY;
+      if (Math.abs(dx) > 20 && Math.abs(dx) > Math.abs(dy)) {
+        var curIdx = Math.round((box.scrollLeft - cardW * n) / cardW);
+        var newIdx = curIdx + (dx > 0 ? 1 : -1);
+        box.scrollTo({ left: cardW * (n + newIdx), behavior: 'smooth' });
+      }
+    }, { passive: true });
   }());
 }
 
@@ -2415,6 +2433,22 @@ if (window.innerWidth > 640) {
       }
       var idx = ((Math.round((box.scrollLeft - cardW * n) / cardW) % n) + n) % n;
       dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+    }, { passive: true });
+
+    /* Single-card-per-swipe + diagonal swipe support */
+    var tsX = 0, tsY = 0;
+    box.addEventListener('touchstart', function (e) {
+      tsX = e.touches[0].clientX;
+      tsY = e.touches[0].clientY;
+    }, { passive: true });
+    box.addEventListener('touchend', function (e) {
+      var dx = tsX - e.changedTouches[0].clientX;
+      var dy = tsY - e.changedTouches[0].clientY;
+      if (Math.abs(dx) > 20 && Math.abs(dx) > Math.abs(dy)) {
+        var curIdx = Math.round((box.scrollLeft - cardW * n) / cardW);
+        var newIdx = curIdx + (dx > 0 ? 1 : -1);
+        box.scrollTo({ left: cardW * (n + newIdx), behavior: 'smooth' });
+      }
     }, { passive: true });
   }());
 }
