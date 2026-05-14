@@ -1173,7 +1173,7 @@ footer {
 @media (max-width: 640px) {
 
   /* ── Section blends ── */
-  #hero::before, #about::before, #services::before, #projects::before, #contact::before {
+  #about::before, #services::before, #projects::before, #contact::before {
     content: '';
     position: absolute;
     bottom: 0; left: 0; right: 0;
@@ -1181,8 +1181,6 @@ footer {
     pointer-events: none;
     z-index: 10;
   }
-  /* Hero (#080808) → About (#0f0f0f) */
-  #hero::before     { background: linear-gradient(to bottom, transparent, #0f0f0f); }
   /* About (#0f0f0f) → Services (#080808) */
   #about::before    { background: linear-gradient(to bottom, transparent, #080808); }
   /* Services (#080808) → Projects (#0f0f0f) */
@@ -1370,7 +1368,9 @@ footer {
   #projects .section-count { display: none; }
   #projects .section-head { border-bottom: none; padding-bottom: 0; margin-bottom: 20px; }
   #projects::after {
-    background: linear-gradient(135deg, rgba(0,200,255,0.14) 0%, rgba(0,200,255,0.06) 40%, transparent 75%);
+    background:
+      linear-gradient(to bottom, #080808, transparent 64px),
+      linear-gradient(135deg, rgba(0,200,255,0.14) 0%, rgba(0,200,255,0.06) 40%, transparent 75%);
   }
 
   .proj-mob-grid {
