@@ -1171,6 +1171,27 @@ footer {
 
 /* ─── RESPONSIVE · MOBILE ─── */
 @media (max-width: 640px) {
+
+  /* ── Section blends ── */
+  #hero::before, #about::before, #services::before, #projects::before, #contact::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 56px;
+    pointer-events: none;
+    z-index: 10;
+  }
+  /* Hero (#080808) → About (#0f0f0f) */
+  #hero::before     { background: linear-gradient(to bottom, transparent, #0f0f0f); }
+  /* About (#0f0f0f) → Services (#080808) */
+  #about::before    { background: linear-gradient(to bottom, transparent, #080808); }
+  /* Services (#080808) → Projects (#0f0f0f) */
+  #services::before { background: linear-gradient(to bottom, transparent, #0f0f0f); }
+  /* Projects (#0f0f0f) → Contact (#080808) */
+  #projects::before { background: linear-gradient(to bottom, transparent, #080808); }
+  /* Contact (#080808) → Footer (#0f0f0f) */
+  #contact::before  { background: linear-gradient(to bottom, transparent, #0f0f0f); }
+
   /* Nav */
   .nav-burger { display: flex; }
   .nav-links { display: none; }
