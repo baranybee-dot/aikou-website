@@ -2484,6 +2484,24 @@ if (window.innerWidth <= 640) {
       haigo:   '#4ecdc4'
     };
 
+    var savedScrollY = 0;
+
+    function lockScroll() {
+      savedScrollY = window.scrollY;
+      document.body.style.position   = 'fixed';
+      document.body.style.top        = '-' + savedScrollY + 'px';
+      document.body.style.width      = '100%';
+      document.body.style.overflowY  = 'hidden';
+    }
+
+    function unlockScroll() {
+      document.body.style.position   = '';
+      document.body.style.top        = '';
+      document.body.style.width      = '';
+      document.body.style.overflowY  = '';
+      window.scrollTo(0, savedScrollY);
+    }
+
     function openModal(proj) {
       var data = projData[proj];
       titles.innerHTML   = data.header;
@@ -2492,23 +2510,29 @@ if (window.innerWidth <= 640) {
       content.className  = 'proj-mob-modal-content slide-' + proj;
       var inner = modal.querySelector('.proj-mob-modal-inner');
       inner.style.setProperty('--proj-accent', accentMap[proj] || 'rgba(0,200,255,0.4)');
-      modal.querySelector('.proj-mob-modal-inner').scrollTop = 0;
+      inner.scrollTop = 0;
+      lockScroll();
       modal.style.display = 'flex';
       requestAnimationFrame(function () { modal.classList.add('open'); });
-      document.body.style.overflow = 'hidden';
     }
 
     function closeModal() {
       modal.classList.remove('open');
-      document.body.style.overflow = '';
+      unlockScroll();
       setTimeout(function () { modal.style.display = 'none'; }, 280);
     }
+
+    /* Prevent backdrop touchmove from leaking to the page behind */
+    modal.addEventListener('touchmove', function (e) {
+      if (e.target === modal) e.preventDefault();
+    }, { passive: false });
 
     document.querySelectorAll('.proj-mob-card').forEach(function (card) {
       card.addEventListener('click', function () { openModal(card.getAttribute('data-proj')); });
     });
 
     document.querySelector('.proj-mob-close').addEventListener('click', closeModal);
+    /* Tap outside the sheet → close */
     modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
   }());
 }
