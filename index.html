@@ -1491,7 +1491,7 @@ footer {
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    padding: 14px 14px 12px 20px;
+    padding: 22px 14px 16px 20px;
     border-bottom: 1px solid rgba(255,255,255,0.08);
   }
   .proj-mob-modal-titles {
@@ -2386,6 +2386,8 @@ if (window.innerWidth > 640) {
     var cardW = 0.82 * window.innerWidth + 10;
 
     var real = Array.from(track.children);
+    /* Reset any opacity:0 the IntersectionObserver set before this runs */
+    real.forEach(function (c) { c.style.opacity = '1'; c.style.transform = ''; });
     real.forEach(function (c) {
       var cl = c.cloneNode(true); cl.setAttribute('aria-hidden','true');
       track.appendChild(cl);
